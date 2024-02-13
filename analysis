@@ -1,0 +1,37 @@
+https://www.kaggle.com/datasets/imyjoshua/average-time-spent-by-a-user-on-social-media
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.read_csv(r"C:\Users\ez\Desktop\Coding\Others\Datasets\Avgtimesocialmedia\dummy_data.csv")
+print(df)
+
+# check for null values, there are no null values
+null_values = df.isnull().sum()
+print(null_values)
+
+#getting income and age
+mean_income_age = df[["income", "age"]].mean()
+max_income_age = df[["income", "age"]].max()
+min_income_age = df[["income", "age"]].min()
+print(mean_income_age)
+print(max_income_age)
+print(min_income_age)
+
+#looking at what professions are in the dataset and the total for each category
+df["profession"].value_counts()
+
+#Subset genders based on their time spent on social media
+#Which gender is more likely to use facebook?
+df.groupby(['gender', 'platform'])['time_spent'].mean()
+
+#creating a pivot table, average age of people who belong to that specific combination of gender and profession.
+df.pivot_table(values = 'age', index = ['gender', 'profession'])
+
+#creating another column - income disturbtion
+bins = np.linspace(min(df['income']), max(df['income']),4)
+groupNames = ["low", "med", "high"]
+df['income'] = pd.cut(df['income'], bins, labels = groupNames, include_lowest = True)
+print(df)
+
