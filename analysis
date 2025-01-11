@@ -2,9 +2,12 @@ https://www.kaggle.com/datasets/imyjoshua/average-time-spent-by-a-user-on-social
 
 import pandas as pd
 import numpy as np
+import seaborn as sns
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 
-df = pd.read_csv(r"C:\Users\ez\Desktop\Coding\Others\Datasets\Avgtimesocialmedia\dummy_data.csv")
+df = pd.read_csv("dummy_data.csv")
 print(df)
 
 # check for null values, there are no null values
@@ -34,6 +37,7 @@ bins = np.linspace(min(df['income']), max(df['income']),4)
 groupNames = ["low", "med", "high"]
 df['income'] = pd.cut(df['income'], bins, labels = groupNames, include_lowest = True)
 
+
 vis2boxplot = sns.boxplot(data = df, x ='income', y='age')
 print(df)
 
@@ -54,4 +58,3 @@ sns.histplot(
 )
 ax.xaxis.set_major_formatter(mpl.ticker.ScalarFormatter())
 ax.set_xticks([10, 20, 30, 40, 50, 60, 70])
-
